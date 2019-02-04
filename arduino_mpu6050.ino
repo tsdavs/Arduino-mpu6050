@@ -4,6 +4,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("yeet");
-
+  if(Serial.available(){
+    Serial.println("yeet");
+  }
 }
