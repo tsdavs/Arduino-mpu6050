@@ -23,3 +23,11 @@ Based off of [Mattzzw's Arduino-mpu6050 project](https://github.com/mattzzw/Ardu
 * Integrate WiFi
 * Variable voltage output to LEDs depending on axis rotation
 
+## How To Run
+
+1. cmake -H. -Bbuild
+2. cmake --build build -- -j3
+3. cd build
+4. make
+5. ../bin/arduino_mpu
+

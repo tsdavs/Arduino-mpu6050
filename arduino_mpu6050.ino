@@ -1,10 +1,13 @@
-void setup() {
-  Serial.begin(9600); // open the serial port to 9600 bps
+#define BAUD 9600
+#define DELAY_TIME 100
 
+const char* helloWorld = "Hello, world!";
+
+void setup() {
+  Serial.begin(BAUD);
 }
 
 void loop() {
-  if(Serial.available(){
-    Serial.println("yeet");
-  }
+  Serial.println(helloWorld);
+  delay(DELAY_TIME);
 }
