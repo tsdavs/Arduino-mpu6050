@@ -1,5 +1,4 @@
 #include "serial.hpp"
-#include <boost/asio.hpp>
 
 Serial::Serial(std::string& portName){
 

@@ -6,6 +6,7 @@
 #include <string>
 #include <boost/asio.hpp>
 
+
 class Serial
 {
 	private:

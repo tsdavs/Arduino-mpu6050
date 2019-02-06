@@ -1,25 +1,17 @@
-cmake_minimum_required(VERSION 2.8) #min version of CMake
+cmake_minimum_required(VERSION 3.3)
+project(rcp)
 
-project(a_mpu6050) #Project's name
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(CMAKE_CXX_FLAGS "-Wall -pedantic -std=c++14") #need them flags
+set(SOURCE_FILES main.cpp)
 
-set(BOOST_ROOT /opt/boost)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
-set(Boost_USE_STATIC_LIBS ON)
+include_directories("libraries/boost")
 
-find_package(Boost 1.40.0 REQUIRED COMPONENTS system regex)
+add_executable(rcp ${SOURCE_FILES})
 
-include_directories(include) #include files
+find_package(Boost REQUIRED COMPONENTS system)
 
-include_directories(${Boost_INCLUDE_DIR})
-
-file(GLOB SOURCES "source/*.cpp") #source files
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/bin)
-
-add_executable(arduino_mpu6050 ${SOURCES})
-
-target_link_libraries(arduino_mpu6050 ${Boost_LIBRARIES})
-
-add_subdirectory(source)
+include_directories(${Boost_INCLUDE_DIRS})
+target_link_libraries(rcp ${Boost_LIBRARIES})
