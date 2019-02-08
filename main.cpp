@@ -9,13 +9,20 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		std::string portName = "/dev/ttyACM0";
+		//std::string device = "/dev/ttyACM0";
 
-		unsigned int baud_rate = 9600;
+		//unsigned int baud_rate = 9600;
 
-		Serial arduino(portName, baud_rate);
+		SerialOptions options;
+
+		Serial arduino(options);
 
 		std::cout << arduino.isConnected() << std::endl;
+
+		//options.setDevice(device);
+
+		//cout << options.getBaud_Rate() << endl;
+
 
 	} catch (boost::system::system_error& e) 
 	{

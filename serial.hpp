@@ -5,38 +5,47 @@
 
 #include <string>
 #include <boost/asio.hpp>
-#include <boost/asio/serial_port.hpp>
 
 using namespace std;
 using namespace boost;
+
+class SerialOptions
+{
+	private:
+		string device;
+		unsigned int baud_rate;
+
+	public:
+		SerialOptions();
+
+		SerialOptions(const string& device, unsigned int baud_rate);
+
+		void setDevice(const string& device);
+
+		string getDevice() const;
+
+		void setBaud_Rate(const unsigned int baud_rate);
+
+		unsigned int getBaud_Rate() const;
+};
+
 
 class Serial
 {
 	private:
 		asio::io_service io_service;
+		
 		asio::serial_port serial_port;
+
+		SerialOptions options;
+
 		bool connected;
 
 
 	public:
-		Serial() = delete;
+		Serial(SerialOptions options);
 
-		Serial(std::string portName, unsigned int baud_rate)
-		: io_service(), serial_port(io_service, portName)
-		{
-			serial_port.set_option(asio::serial_port_base::baud_rate(baud_rate));
-			
-			if(serial_port.is_open())
-				this->connected = true;
-		};
-
-		~Serial(){};
-
-		//int readSerialPort(char *buffer, unsigned int buf_size);
-		bool isConnected()
-		{
-			return this->connected;
-		};
+		bool isConnected();
 };
 
 
