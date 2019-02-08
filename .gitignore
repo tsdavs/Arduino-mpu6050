@@ -15,4 +15,3 @@ CTestTestfile.cmake
 *.exe
 *.out
 *.app
-arduino_mpu6050

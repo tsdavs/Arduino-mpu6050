@@ -5,14 +5,21 @@
 
 using namespace std;
 
-int main(void) {
+int main(int argc, char* argv[]) 
+{
+	try
+	{
+		std::string portName = "/dev/ttyACM0";
 
-	std::string portName = "/dev/ttyACM0";
+		unsigned int baud_rate = 9600;
 
-	Serial *arduino = new Serial(portName);
+		Serial arduino(portName, baud_rate);
 
-	std::cout << arduino->isConnected() << std::endl;
+		std::cout << arduino.isConnected() << std::endl;
 
-	return(0);
-
+	} catch (boost::system::system_error& e) 
+	{
+		cout << e.what() << endl;
+		return 1;
+	}
 }
