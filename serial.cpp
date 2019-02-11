@@ -1,45 +1,35 @@
 #include "serial.hpp"
 
-/**
- * SerialOptions constructor
- */
-SerialOptions::SerialOptions()
-: device("/dev/ttyACM0"), baud_rate(9600)
-{
-
-};
-
-SerialOptions::SerialOptions(const string& device, unsigned int baud_rate)
-{
-
-};
-
-void SerialOptions::setDevice(const string& device)
-{this->device = device;};
-
 string SerialOptions::getDevice() const
 {return this->device;};
-
-void SerialOptions::setBaud_Rate(const unsigned int baud_rate)
-{this->baud_rate = baud_rate;};
 
 unsigned int SerialOptions::getBaud_Rate() const
 {return this->baud_rate;};
 
-/**
- * Serial constructor
- */
-Serial::Serial(SerialOptions options)
+Serial::Serial(const SerialOptions options)
 : io_service(), serial_port(io_service, options.getDevice())
 {
 	serial_port.set_option(asio::serial_port_base::baud_rate(options.getBaud_Rate()));
-	
-	if(serial_port.is_open())
-		this->connected = true;
+
+	serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
+		bind(&Serial::handler, this,
+			asio::placeholders::error,
+			asio::placeholders::bytes_transferred));
+
+	io_service.run();
+
 };
 
-bool Serial::isConnected()
+void Serial::handler(const system::error_code& error, size_t bytes_transferred)
 {
-	return this->connected;
+	while(serial_port.is_open())
+	{
+		char c;
+
+		read(serial_port, asio::buffer(&c, 1));
+
+		std::cout << c;
+	}
+
 };
 

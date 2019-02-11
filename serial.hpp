@@ -3,8 +3,9 @@
 
 #pragma once
 
-#include <string>
+#include <iostream>
 #include <boost/asio.hpp>
+#include <boost/bind.hpp>
 
 using namespace std;
 using namespace boost;
@@ -13,18 +14,15 @@ class SerialOptions
 {
 	private:
 		string device;
+
 		unsigned int baud_rate;
 
 	public:
-		SerialOptions();
+		SerialOptions(): device("/dev/ttyACM0"), baud_rate(9600){};
 
-		SerialOptions(const string& device, unsigned int baud_rate);
-
-		void setDevice(const string& device);
+		SerialOptions(const string& device, unsigned int baud_rate){};
 
 		string getDevice() const;
-
-		void setBaud_Rate(const unsigned int baud_rate);
 
 		unsigned int getBaud_Rate() const;
 };
@@ -34,18 +32,19 @@ class Serial
 {
 	private:
 		asio::io_service io_service;
-		
+
 		asio::serial_port serial_port;
 
 		SerialOptions options;
 
-		bool connected;
+		static const int readBufferSize = 512;
 
+		char readBuffer[readBufferSize];
 
 	public:
-		Serial(SerialOptions options);
+		explicit Serial(const SerialOptions options);
 
-		bool isConnected();
+		void handler(const system::error_code& error, size_t bytes_transferred);
 };
 
 
