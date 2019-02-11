@@ -5,10 +5,10 @@ Serial::Serial(const SerialOptions options)
 {
 	//setting options
 	serial_port.set_option(options.getBaud_Rate());
-	//serial_port.set_option(options.getParity());
-	//serial_port.set_option(options.getFlow_Control());
-	//serial_port.set_option(options.getStop_Bits());
-	//serial_port.set_option(options.getChar_Size());
+	serial_port.set_option(options.getParity());
+	serial_port.set_option(options.getFlow_Control());
+	serial_port.set_option(options.getStop_Bits());
+	serial_port.set_option(options.getChar_Size());
 
 	//async_read_some() makes the system call that starts the read
 	serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
@@ -25,16 +25,13 @@ void Serial::handler(const system::error_code& error, size_t bytes_transferred)
 {
 	if(!error)
 	{
-		for(unsigned int i = 0; i < bytes_transferred; ++i)
-		{
-			serial_read_data += readBuffer[i];
-		}
+		cout << string(readBuffer, bytes_transferred);
 
-		cout << "bytes_transferred: " << bytes_transferred << endl;
-
-		cout << "serial_read_data: " << endl << serial_read_data << endl;
-
-		cout << "No more bytes_transferred" << endl;
+		//For continous stream of data the handler needs to re-add itself to the work
+		serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
+			bind(&Serial::handler, this,
+				asio::placeholders::error,
+				asio::placeholders::bytes_transferred));
 
 	}
 };
