@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 
@@ -15,16 +16,41 @@ class SerialOptions
 	private:
 		string device;
 
-		unsigned int baud_rate;
+		asio::serial_port_base::baud_rate baud_rate;
+
+		asio::serial_port_base::parity parity;
+
+		asio::serial_port_base::flow_control flow_control;
+
+		asio::serial_port_base::stop_bits stop_bits;
+
+		asio::serial_port_base::character_size char_size;
 
 	public:
-		SerialOptions(): device("/dev/ttyACM0"), baud_rate(9600){};
+		SerialOptions():device("/dev/ttyACM0"), 
+						baud_rate(9600),
+						parity(asio::serial_port_base::parity::none),
+						flow_control(asio::serial_port_base::flow_control::none),
+						stop_bits(asio::serial_port_base::stop_bits::one),
+						char_size(asio::serial_port_base::character_size(8)){};
 
-		SerialOptions(const string& device, unsigned int baud_rate){};
+		string getDevice() const
+		{return this->device;};
 
-		string getDevice() const;
+		asio::serial_port_base::baud_rate getBaud_Rate() const
+		{return this->baud_rate;};
 
-		unsigned int getBaud_Rate() const;
+		asio::serial_port_base::parity getParity() const
+		{return this->parity;};
+
+		asio::serial_port_base::flow_control getFlow_Control() const
+		{return this->flow_control;};
+
+		asio::serial_port_base::stop_bits getStop_Bits() const
+		{return this->stop_bits;};
+
+		asio::serial_port_base::character_size getChar_Size() const
+		{return this->char_size;};
 };
 
 
@@ -37,9 +63,11 @@ class Serial
 
 		SerialOptions options;
 
-		static const int readBufferSize = 512;
+		static const int readBufferSize = 128;
 
 		char readBuffer[readBufferSize];
+
+		string serial_read_data;
 
 	public:
 		explicit Serial(const SerialOptions options);
