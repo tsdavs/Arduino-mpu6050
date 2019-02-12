@@ -10,7 +10,6 @@ int main(int argc, char* argv[])
 
 		Serial arduino(options);
 
-
 	} catch (boost::system::system_error& e) 
 	{
 		cout << "error! " << e.what() << endl;
