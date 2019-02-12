@@ -37,7 +37,7 @@ class Serial
 
 		asio::serial_port serial_port;
 
-		SerialOptions options;
+		//SerialOptions options;
 
 		static const int readBufferSize = 128;
 
@@ -49,6 +49,15 @@ class Serial
 		explicit Serial(const SerialOptions options);
 
 		void handler(const system::error_code& error, size_t bytes_transferred);
+
+		void test();
+
+		void testHandler();
+
+		/*asio::io_service getIo_Service()
+		{
+			return io_service;
+		};*/
 };
 
 

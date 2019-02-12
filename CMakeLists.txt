@@ -12,7 +12,7 @@ include_directories("libraries/boost")
 
 add_executable(arduino_mpu_6050 ${SOURCE_FILES})
 
-find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system thread)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

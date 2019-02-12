@@ -22,7 +22,7 @@ void Serial::handler(const system::error_code& error, size_t bytes_transferred)
 	{
 		cout << string(readBuffer, bytes_transferred);
 
-		cout << "/";
+		test();
 
 		//For continous stream of data the handler needs to re-add itself to the work
 		serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
@@ -33,5 +33,14 @@ void Serial::handler(const system::error_code& error, size_t bytes_transferred)
 	}
 };
 
+void Serial::test()
+{
+	io_service.post(bind(&Serial::testHandler, this));
+};
+
+void Serial::testHandler()
+{
+	cout << "/";
+};
 
 
