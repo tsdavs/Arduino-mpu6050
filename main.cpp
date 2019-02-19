@@ -1,29 +1,22 @@
-#include "serial.hpp"
-#include <boost/thread.hpp>
-
-using namespace std;
-
-void yeet()
-{
-	cout << "thread" << endl;
-}
+#include "window.hpp"
 
 int main(int argc, char* argv[]) 
 {
 	try
 	{
-		SerialOptions options;
+		//SerialOptions options;
 
-		thread t{yeet};
+		//Serial device(options);
 
-		Serial arduino(options);
+		Device device;
 
-		t.join();
+		Window window(device);
 
 	} catch (boost::system::system_error& e) 
 	{
 		cout << "error! " << e.what() << endl;
-
-		return 1;
 	}
+
+	return 1;
+
 }

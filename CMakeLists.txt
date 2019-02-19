@@ -4,7 +4,7 @@ project(arduino_mpu_6050)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp serial.cpp)
+set(SOURCE_FILES main.cpp serial.cpp window.cpp)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 

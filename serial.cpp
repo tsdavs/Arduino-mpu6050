@@ -1,7 +1,7 @@
 #include "serial.hpp"
 
-Serial::Serial(const SerialOptions options)
-: io_service(), serial_port(io_service, options.getDevice())
+Serial::Serial(SerialOptions options)
+: options(options), io_service(), serial_port(io_service, options.getDevice())
 {
 	serial_port.set_option(options.getBaud_Rate());
 
@@ -22,16 +22,11 @@ void Serial::handler(const system::error_code& error, size_t bytes_transferred)
 	{
 		cout << string(readBuffer, bytes_transferred);
 
-		test();
+		//serial_read_data = string(readBuffer);
 
-		//For continous stream of data the handler needs to re-add itself to the work
-		serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
-			bind(&Serial::handler, this,
-				asio::placeholders::error,
-				asio::placeholders::bytes_transferred));
-
+		//test();
 	}
-};
+/*};
 
 void Serial::test()
 {
@@ -41,6 +36,12 @@ void Serial::test()
 void Serial::testHandler()
 {
 	cout << "/";
+*/
+	//For continous stream of data the handler needs to re-add itself to the work
+	serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
+		bind(&Serial::handler, this,
+			asio::placeholders::error,
+			asio::placeholders::bytes_transferred));
 };
 
 
