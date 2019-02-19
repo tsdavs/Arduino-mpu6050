@@ -1,9 +1,9 @@
 #include "serial.hpp"
 
-Serial::Serial(SerialOptions options)
-: options(options), io_service(), serial_port(io_service, options.getDevice())
+Serial::Serial()
+: options(), io_service(), serial_port(io_service, options.port)
 {
-	serial_port.set_option(options.getBaud_Rate());
+	serial_port.set_option(asio::serial_port_base::baud_rate(9600));
 
 	//async_read_some() makes the system call that starts the read
 	serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),

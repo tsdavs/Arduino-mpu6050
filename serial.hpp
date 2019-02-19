@@ -13,14 +13,14 @@ using namespace boost;
 
 struct Options
 {
-	private:
-		string device;
+	public:
+		string port = "/dev/ttyACM0";
 
-		asio::serial_port_base::baud_rate baud_rate;
+		//asio::serial_port_base::baud_rate baud_rate(unsigned int rate = 9600);
 };
 
 
-class SerialOptions
+/*class SerialOptions
 {
 	private:
 		string device;
@@ -29,20 +29,22 @@ class SerialOptions
 
 	public:
 		SerialOptions():device("/dev/ttyACM0"), 
-						baud_rate(9600){ cout << "SerialOption create";};
+						baud_rate(9600){ cout << "SerialOption created" << endl;};
 
 		string getDevice() const
 		{return this->device;};
 
 		asio::serial_port_base::baud_rate getBaud_Rate() const
 		{return this->baud_rate;};
-};
+};*/
 
 
 class Serial : Options
 {
 	private:
-		SerialOptions& options;
+		Options options;
+
+		//SerialOptions& options;
 
 		asio::io_service io_service;
 
@@ -55,11 +57,9 @@ class Serial : Options
 		string serial_read_data;
 
 	public:
-		Serial() = default;
+		//Serial() = default;
 
-		explicit Serial(const SerialOptions options);
-
-		~Serial(){};
+		Serial();
 
 		void handler(const system::error_code& error, size_t bytes_transferred);
 

@@ -4,13 +4,11 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		//SerialOptions options;
+		Serial serial;
 
-		//Serial device(options);
+		//Device device;
 
-		Device device;
-
-		Window window(device);
+		//Window window(device);
 
 	} catch (boost::system::system_error& e) 
 	{

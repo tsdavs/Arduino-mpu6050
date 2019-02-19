@@ -26,16 +26,16 @@ struct thread_object
 		~thread_object() {work.reset(); th.join();}
 };
 
-struct Device : thread_object
+struct SerialDevice : thread_object
 {
 	public:
-		Serial* device; 
+		Serial* serial; 
 
-		Device(Serial);
+		SerialDevice(Serial);
 
-		Device() : device(device) 
+		SerialDevice() : serial(serial) 
 		{ 
-			cout << device << endl; 
+			cout << serial << endl; 
 		};
 
 	private:
@@ -43,11 +43,11 @@ struct Device : thread_object
 
 struct Window : thread_object
 {
-	Device& device;
+	SerialDevice& serial;
 
-	Window(Device& device): device(device) 
+	Window(SerialDevice& serial): serial(serial) 
 	{ 
-		cout << device.device << endl;
+		cout << serial.serial << endl;
 	};
 };
 
