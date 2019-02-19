@@ -29,33 +29,21 @@ struct thread_object
 struct SerialDevice : thread_object
 {
 	public:
-		Serial* serial; 
+		Serial serial;
 
-		SerialDevice(Serial);
-
-		SerialDevice() : serial(serial) 
-		{ 
-			cout << serial << endl; 
-		};
+		SerialDevice(): serial(){};
 
 	private:
 };
 
 struct Window : thread_object
 {
-	SerialDevice& serial;
+	private:
+		SerialDevice& serialDevice;
 
-	Window(SerialDevice& serial): serial(serial) 
-	{ 
-		cout << serial.serial << endl;
-	};
+	public:
+		Window(SerialDevice& serialDevice);
+
 };
-
-
-
-
-
-
-
 
 #endif //WINDOW_HPP

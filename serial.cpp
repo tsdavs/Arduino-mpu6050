@@ -20,9 +20,9 @@ void Serial::handler(const system::error_code& error, size_t bytes_transferred)
 {
 	if(!error)
 	{
-		cout << string(readBuffer, bytes_transferred);
+		/*cout << */string(readBuffer, bytes_transferred);
 
-		//serial_read_data = string(readBuffer);
+		serial_read_data = string(readBuffer);
 
 		//test();
 	}
@@ -38,10 +38,11 @@ void Serial::testHandler()
 	cout << "/";
 */
 	//For continous stream of data the handler needs to re-add itself to the work
-	serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
+	/*serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
 		bind(&Serial::handler, this,
 			asio::placeholders::error,
 			asio::placeholders::bytes_transferred));
+			*/
 };
 
 
