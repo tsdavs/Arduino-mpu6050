@@ -3,9 +3,10 @@
 
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <boost/asio.hpp>
-#include <boost/asio/serial_port.hpp>
+#include <boost/bind.hpp>
 
 using namespace std;
 using namespace boost;
@@ -13,31 +14,25 @@ using namespace boost;
 class Serial
 {
 	private:
-		asio::io_service io_service;
-		asio::serial_port serial_port;
-		bool connected;
+		string port = "/dev/ttyACM0";
 
+		asio::io_service io_service;
+
+		asio::serial_port serial_port;
+
+		static const int readBufferSize = 32;
+
+		char readBuffer[readBufferSize];
 
 	public:
-		Serial() = delete;
+		Serial();
 
-		Serial(std::string portName, unsigned int baud_rate)
-		: io_service(), serial_port(io_service, portName)
-		{
-			serial_port.set_option(asio::serial_port_base::baud_rate(baud_rate));
-			
-			if(serial_port.is_open())
-				this->connected = true;
-		};
+		void readHandler(const system::error_code& error, size_t bytes_transferred);
 
-		~Serial(){};
+		void windowHandler();
 
-		//int readSerialPort(char *buffer, unsigned int buf_size);
-		bool isConnected()
-		{
-			return this->connected;
-		};
+		string serial_read_data;
+
 };
-
 
 #endif //SERIAL_HPP

@@ -5,10 +5,9 @@ const char* helloWorld = "Hello, world!\n";
 
 void setup() {
   Serial.begin(BAUD);
-  Serial.println(helloWorld);
-  delay(DELAY_TIME);
 }
 
 void loop() {
-
+  Serial.println(helloWorld);
+  delay(DELAY_TIME);
 }
