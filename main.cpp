@@ -1,19 +1,16 @@
-#include "serial.hpp"
-
-using namespace std;
+#include "window.hpp"
 
 int main(int argc, char* argv[]) 
 {
 	try
 	{
-		SerialOptions options;
-
-		Serial arduino(options);
+		Serial serial;
 
 	} catch (boost::system::system_error& e) 
 	{
 		cout << "error! " << e.what() << endl;
-
-		return 1;
 	}
+
+	return 1;
+
 }

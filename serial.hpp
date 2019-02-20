@@ -11,45 +11,28 @@
 using namespace std;
 using namespace boost;
 
-class SerialOptions
-{
-	private:
-		string device;
-
-		asio::serial_port_base::baud_rate baud_rate;
-
-	public:
-		SerialOptions():device("/dev/ttyACM1"), 
-						baud_rate(9600){};
-
-		string getDevice() const
-		{return this->device;};
-
-		asio::serial_port_base::baud_rate getBaud_Rate() const
-		{return this->baud_rate;};
-};
-
-
 class Serial
 {
 	private:
+		string port = "/dev/ttyACM0";
+
 		asio::io_service io_service;
 
 		asio::serial_port serial_port;
 
-		SerialOptions options;
-
-		static const int readBufferSize = 128;
+		static const int readBufferSize = 32;
 
 		char readBuffer[readBufferSize];
 
+	public:
+		Serial();
+
+		void readHandler(const system::error_code& error, size_t bytes_transferred);
+
+		void windowHandler();
+
 		string serial_read_data;
 
-	public:
-		explicit Serial(const SerialOptions options);
-
-		void handler(const system::error_code& error, size_t bytes_transferred);
 };
-
 
 #endif //SERIAL_HPP
