@@ -12,8 +12,12 @@ include_directories("libraries/boost")
 
 add_executable(arduino_mpu_6050 ${SOURCE_FILES})
 
+find_package(OpenGL REQUIRED)
+
+find_package(GLUT REQUIRED)
+
 find_package(Boost REQUIRED COMPONENTS system thread)
 
-include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${Boost_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 
-target_link_libraries(arduino_mpu_6050 ${Boost_LIBRARIES})
+target_link_libraries(arduino_mpu_6050 ${Boost_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
