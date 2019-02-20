@@ -1,6 +1,6 @@
 #include "window.hpp"
 
-Window::Window(SerialDevice& serialDevice): serialDevice(serialDevice)
+Window::Window()
 {
-	cout << serialDevice.serial.serial_read_data <<endl;
+
 };

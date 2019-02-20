@@ -11,19 +11,10 @@
 using namespace std;
 using namespace boost;
 
-//went with stuct to have option of adding more later
-struct Options
-{
-	public:
-		string port = "/dev/ttyACM0";
-
-		//asio::serial_port_base::baud_rate baud_rate(unsigned int rate = 9600);
-};
-
-class Serial : Options
+class Serial
 {
 	private:
-		Options options;
+		string port = "/dev/ttyACM0";
 
 		asio::io_service io_service;
 
@@ -36,11 +27,9 @@ class Serial : Options
 	public:
 		Serial();
 
-		void handler(const system::error_code& error, size_t bytes_transferred);
+		void readHandler(const system::error_code& error, size_t bytes_transferred);
 
-		void test();
-
-		void testHandler();
+		void windowHandler();
 
 		string serial_read_data;
 

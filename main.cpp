@@ -4,9 +4,7 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-		SerialDevice serialDevice;
-
-		Window window(serialDevice);
+		Serial serial;
 
 	} catch (boost::system::system_error& e) 
 	{
