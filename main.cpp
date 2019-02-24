@@ -1,28 +1,37 @@
-#include "window.hpp"
+#include "serial.hpp"
 #include "GL/freeglut.h"
 #include "GL/gl.h"
 
+Serial serial;
+
+void update(void)
+{
+	serial.read();
+
+	/*
+	 *drawing code here
+	*/
+
+	//creates a loop to read and draw
+	glutPostRedisplay();
+}
+
 int main(int argc, char* argv[]) 
 {
-	try
-	{
-		glutInit(&argc, argv);
+	glutInit(&argc, argv);
 
-		glutInitDisplayMode(GLUT_SINGLE);
+	glutInitDisplayMode(GLUT_SINGLE);
 
-		glutInitWindowSize(500, 500);
+	glutInitWindowSize(500, 500);
 
-		glutInitWindowPosition(100, 100);
+	glutInitWindowPosition(100, 100);
 
-		glutCreateWindow("arduino_mpu6050");
+	glutCreateWindow("arduino_mpu6050");
 
-		Serial serial;
+	glutIdleFunc(update);
 
-	} catch (boost::system::system_error& e) 
-	{
-		cout << "error! " << e.what() << endl;
-	}
+	glutMainLoop();
 
-	return 1;
+	return EXIT_SUCCESS;
 
 }

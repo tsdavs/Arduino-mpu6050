@@ -27,12 +27,11 @@ class Serial
 	public:
 		Serial();
 
+		void read();
+
 		void readHandler(const system::error_code& error, size_t bytes_transferred);
 
-		void windowHandler();
-
 		string serial_read_data;
-
 };
 
 #endif //SERIAL_HPP
