@@ -20,9 +20,7 @@ class Serial
 
 		asio::serial_port serial_port;
 
-		static const int readBufferSize = 32;
-
-		char readBuffer[readBufferSize];
+		asio::streambuf streambuf;
 
 	public:
 		Serial();

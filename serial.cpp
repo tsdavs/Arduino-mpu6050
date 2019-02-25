@@ -8,8 +8,8 @@ Serial::Serial()
 
 void Serial::read()
 {
-	//async_read_some() makes the system call that starts the read
-	serial_port.async_read_some(asio::buffer(readBuffer, readBufferSize),
+	//async_read_until() makes the system call that starts the read
+	asio::async_read_until(serial_port, streambuf, "\n",
 		bind(&Serial::readHandler, this,
 			asio::placeholders::error,
 			asio::placeholders::bytes_transferred));
@@ -25,10 +25,9 @@ void Serial::readHandler(const system::error_code& error, size_t bytes_transferr
 {
 	if(!error)
 	{
-		//set output to string
-		serial_read_data = string(readBuffer, bytes_transferred);
+		istream is(&streambuf);
+		getline(is, serial_read_data);
 
-		cout << serial_read_data;
-
+		cout << serial_read_data << "/" << endl;
 	}
 };
