@@ -5,6 +5,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <sstream>
+#include <map>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 
@@ -29,7 +32,11 @@ class Serial
 
 		void readHandler(const system::error_code& error, size_t bytes_transferred);
 
+		void variablSanitizer(string serial_read_data);
+
 		string serial_read_data;
+
+		map<string, string> angles;
 };
 
 #endif //SERIAL_HPP
