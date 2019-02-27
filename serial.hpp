@@ -5,6 +5,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <sstream>
+#include <map>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 
@@ -20,19 +23,25 @@ class Serial
 
 		asio::serial_port serial_port;
 
-		static const int readBufferSize = 32;
+		asio::streambuf streambuf;
 
-		char readBuffer[readBufferSize];
+		string serial_read_data;
+
+		string reading = "read";
 
 	public:
 		Serial();
 
+		void read();
+
 		void readHandler(const system::error_code& error, size_t bytes_transferred);
 
-		void windowHandler();
+		void variablSanitizer(string serial_read_data);
 
-		string serial_read_data;
+		//x, y, z
+		vector<float> angles;
 
+		bool isReading = false;
 };
 
 #endif //SERIAL_HPP
