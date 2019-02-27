@@ -25,6 +25,10 @@ class Serial
 
 		asio::streambuf streambuf;
 
+		string serial_read_data;
+
+		string reading = "read";
+
 	public:
 		Serial();
 
@@ -34,9 +38,10 @@ class Serial
 
 		void variablSanitizer(string serial_read_data);
 
-		string serial_read_data;
+		//x, y, z
+		vector<float> angles;
 
-		map<string, string> angles;
+		bool isReading = false;
 };
 
 #endif //SERIAL_HPP

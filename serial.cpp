@@ -26,31 +26,33 @@ void Serial::readHandler(const system::error_code& error, size_t bytes_transferr
 	if(!error)
 	{
 		istream is(&streambuf);
+
 		getline(is, serial_read_data);
+		
 		variablSanitizer(serial_read_data);
 	}
 };
 
 void Serial::variablSanitizer(string serial_read_data)
 {
+	angles.clear();
+
 	stringstream sstream(serial_read_data);
 
 	string temp;
-
-	vector<string> words;
 
 	char delim = ' ';
 
 	while(getline(sstream, temp, delim))
 	{
-		words.push_back(temp);
-	}
+		if(isReading)
+		{
+			angles.push_back(stof(temp));
+		}
 
-	//just to read out and make sure it works
-	for(unsigned int i = 0; i < words.size(); i++)
-	{
-		cout << " " << words.at(i);
+		if(temp.compare(reading) == 0)
+		{
+			isReading = true;
+		}
 	}
-
-	cout << endl;
 };

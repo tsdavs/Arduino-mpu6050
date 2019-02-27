@@ -14,12 +14,12 @@ void setup() {
 
 void loop() {
   mpu6050.update();
-  Serial.print(" angleX ");
   Serial.print(mpu6050.getAngleX());
-  Serial.print(" angleY ");
+  Serial.print(" ");
   Serial.print(mpu6050.getAngleY());
-  Serial.print(" angleZ ");
+  Serial.print(" ");
   Serial.print(mpu6050.getAngleZ());
+  Serial.print(" ");
   Serial.print("\n");
 
 }
